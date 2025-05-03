@@ -1,3 +1,11 @@
+
+using Bookoria.DataAccess.Repository;
+using Bookoria.DataAccess.Repository.IRepository;
+using Bookoria.DataAcess.Data;
+using Bookoria.Models;
+using Microsoft.EntityFrameworkCore;
+using Microsoft.AspNetCore.Identity;
+
 namespace Ecommerce_MVC
 {
     public class Program
@@ -8,7 +16,11 @@ namespace Ecommerce_MVC
 
             // Add services to the container.
             builder.Services.AddControllersWithViews();
+            builder.Services.AddDbContext<ApplicationDbContext>(options => options.UseSqlServer(
+                builder.Configuration.GetConnectionString("StoreDB")));
 
+            builder.Services.AddDefaultIdentity<IdentityUser>().AddEntityFrameworkStores<ApplicationDbContext>();
+            builder.Services.AddScoped<IUnitOfWork, UnitOFWork>();
             var app = builder.Build();
 
             // Configure the HTTP request pipeline.
@@ -23,12 +35,12 @@ namespace Ecommerce_MVC
             app.UseStaticFiles();
 
             app.UseRouting();
-
+            app.UseAuthentication();
             app.UseAuthorization();
 
             app.MapControllerRoute(
                 name: "default",
-                pattern: "{controller=Home}/{action=Index}/{id?}");
+                pattern:"{area=Customer}/{controller=Home}/{action=Index}/{id?}");
 
             app.Run();
         }

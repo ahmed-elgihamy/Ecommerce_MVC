@@ -1,9 +1,12 @@
 using System.Diagnostics;
+using Bookoria.Models;
 using Microsoft.AspNetCore.Mvc;
-using Ecommerce_MVC.Models;
 
-namespace Ecommerce_MVC.Controllers;
+namespace Ecommerce_MVC.Areas.Customer.Controllers;
 
+
+
+[Area("Customer")]
 public class HomeController : Controller
 {
     private readonly ILogger<HomeController> _logger;

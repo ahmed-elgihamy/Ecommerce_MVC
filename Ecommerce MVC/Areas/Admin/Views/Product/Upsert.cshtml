@@ -1,0 +1,96 @@
+﻿@model ProductVM
+
+<form method="post" class="mt-5" enctype="multipart/form-data">
+
+    <partial name="_Notification" />
+    <input asp-for="product.Id" hidden />
+    <input asp-for="product.ImageUrl" hidden />
+
+    <div class="card shadow p-4 mb-4">
+        <div class="card-header bg-secondary text-white text-center p-3">
+            <h3>@(Model.product.Id != 0 ? "Update" : "Create") Product</h3>
+        </div>
+
+        <div class="card-body">
+            <div class="row">
+                <!-- Image Section -->
+                <div class="col-lg-4 mb-3 text-center">
+                    <img src="@Model.product.ImageUrl" class="rounded hover-image mb-3" width="100%" alt="Product Image" />
+
+                    <div class="input-group">
+                        <input type="file" class="form-control" id="imageUpload" name="file" accept="image/*">
+                        <label class="input-group-text" for="imageUpload">Browse</label>
+                    </div>
+                    <span asp-validation-for="product.ImageUrl" class="text-danger small"></span>
+                </div>
+
+                <!-- Details Section -->
+                <div class="col-lg-8">
+                    <div class="mb-3">
+                        <label asp-for="product.Title" class="form-label"></label>
+                        <input asp-for="product.Title" class="form-control" placeholder="Enter Product Name" />
+                        <span asp-validation-for="product.Title" class="text-danger"></span>
+                    </div>
+
+                    <div class="mb-3">
+                        <label asp-for="product.Description" class="form-label"></label>
+                        <textarea asp-for="product.Description" class="form-control" placeholder="Enter Description"></textarea>
+                    </div>
+
+                    <div class="row">
+                        <div class="col-md-4 mb-3">
+                            <label asp-for="product.ISBN" class="form-label"></label>
+                            <input asp-for="product.ISBN" class="form-control" placeholder="Enter ISBN" />
+                        </div>
+
+                        <div class="col-md-4 mb-3">
+                            <label asp-for="product.Author" class="form-label"></label>
+                            <input asp-for="product.Author" class="form-control" placeholder="Enter Author" />
+                        </div>
+
+                        <div class="col-md-4 mb-3">
+                            <label asp-for="product.CategoryId" class="form-label"></label>
+                            <select asp-for="product.CategoryId" class="form-select" asp-items="@Model.CategoryLists">
+                                <option disabled selected>---Select Category---</option>
+                            </select>
+                        </div>
+                    </div>
+
+                    <!-- Pricing Table -->
+                    <div class="table-responsive mb-3">
+                        <table class="table table-bordered text-center">
+                            <thead class="bg-light">
+                                <tr>
+                                    <th>Quantity</th>
+                                    <th>1-50</th>
+                                    <th>51-100</th>
+                                    <th>100+</th>
+                                    <th>LastPrice</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <tr>
+
+                                    <td class="text-warning fw-bold">Price</td>
+                                    <td><input asp-for="product.Price" class="form-control text-warning "></td>
+                                    <td><input asp-for="product.Price50" class="form-control text-warning" /></td>
+                                    <td><input asp-for="product.Price100" class="form-control text-warning" /></td>
+                                    <td><input asp-for="product.ListPrice" class="form-control text-warning" /></td>
+                                </tr>
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div class="card-footer text-end">
+            <div class="d-flex justify-content-end gap-2">
+                <button type="submit" class="btn btn-success px-4">
+                    @(Model.product.Id != 0 ? "Update" : "Create")
+                </button>
+                <a asp-controller="Product" asp-action="Index" class="btn btn-outline-secondary px-4">Back</a>
+            </div>
+        </div>
+    </div>
+</form>

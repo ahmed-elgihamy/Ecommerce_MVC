@@ -1,0 +1,37 @@
+﻿@using Bookoria.Models
+@model Category
+
+<form method="post" class="mt-5">
+    <partial name="_Notification" />
+    <div class="card shadow p-4">
+        <div class="card-header bg-primary text-white text-center p-3">
+            <h3>Update Category</h3>
+        </div>
+        <div class="card-body">
+            <div class="mb-3">
+                <label asp-for="Name" class="form-label"></label>
+                <input asp-for="Name" class="form-control" placeholder="Enter category name" />
+                <span asp-validation-for="Name" class="text-danger"></span>
+            </div>
+
+            <div class="mb-3">
+                <label asp-for="DisplayOrder" class="form-label"></label>
+                <input asp-for="DisplayOrder" class="form-control" placeholder="Enter display order" />
+                <span asp-validation-for="DisplayOrder" class="text-danger"></span>
+            </div>
+        </div>
+
+        <div class="card-footer text-end">
+            <div class="d-flex justify-content-end gap-2">
+                <button type="submit" class="btn btn-primary px-4">Update</button>
+                <a asp-controller="Category" asp-action="Index" class="btn btn-outline-primary px-4">Back</a>
+            </div>
+        </div>
+    </div>
+</form>
+
+@section Scripts {
+    <partial name="_ValidationScriptsPartial" />
+}
+
+

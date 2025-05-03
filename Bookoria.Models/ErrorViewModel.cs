@@ -1,4 +1,4 @@
-namespace Ecommerce_MVC.Models
+namespace Bookoria.Models
 {
     public class ErrorViewModel
     {
